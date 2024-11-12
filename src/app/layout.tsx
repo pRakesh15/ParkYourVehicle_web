@@ -4,7 +4,9 @@ import { Inter } from 'next/font/google'
 import { ApolloProvider } from '../../../libs/Network/src/config/apollo'
 import './globals.css';
 // import NavBar from '@/Components/NavBar';
-import { SessionProvider } from '@/Components/molecules/SessionProvider';
+import { SessionProvider } from '@/components/molecules/SessionProvider';
+import NavBar from '@/components/NavBar';
+import { ToastContainer } from 'react-toastify';
 const inter = Inter({ subsets: ['latin'] })
 
 // export const metadata: Metadata = {
@@ -27,9 +29,10 @@ export default function RootLayout({
       <SessionProvider>
         <ApolloProvider>
           
-          <body className={`${inter.className} bg-gray-25`}>
-          {/* <NavBar/> */}
+          <body className={`${inter.className} bg-gray-25 bg-black`}>
+          <NavBar/>
             {children}
+            <ToastContainer />
           </body>
         </ApolloProvider>
         </SessionProvider>

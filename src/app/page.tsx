@@ -11,30 +11,8 @@ export default function Home() {
   // const router = useRouter();
   return (
     <div>
-      <div>
-      {
-            sessionData?.user?.uid?(
-                <button
-                onClick={()=>signOut()}
-                className="hidden md:block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-              >
-                Logout
-              </button>
-            ): <button
-          
-            className="hidden md:block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-          >
-
-
-            <Link href={'/login'}>Login</Link>
-          </button>
-        }
-      </div>
-
-      {
-        data?.users.map((user) => (
-          <div key={user.uid}>{user.name}</div>
-        ))}
+      Jay SHREE RAM
+     
     </div>
   );
 }

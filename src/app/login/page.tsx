@@ -1,12 +1,15 @@
 'use client'
-import LoginForm from '@/Components/LoginForm'
+import LoginForm from '@/components/LoginForm'
 import React from 'react'
+import { ToastContainer } from 'react-toastify'
 
 type Props = {}
 
 const page = (props: Props) => {
     return (
-        <div><LoginForm /></div>
+        <div><LoginForm />
+            <ToastContainer position="top-right" autoClose={3000} />
+        </div>
     )
 }
 
