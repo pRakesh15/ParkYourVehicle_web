@@ -29,7 +29,7 @@ export default function RootLayout({
       <SessionProvider>
         <ApolloProvider>
           
-          <body className={`${inter.className} bg-gray-25 bg-black`}>
+          <body className={`${inter.className} bg-gray-25 bg-black text-white`}>
           <NavBar/>
             {children}
             <ToastContainer />

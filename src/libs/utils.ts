@@ -1,6 +1,23 @@
-import { ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
+
+
+export const toLocalISOString=(date:Date):string=>{
+  const tzoffset=date.getTimezoneOffset()*60000
+
+  const localISOTime=new Date(date.getTime()-tzoffset).toISOString()
+
+  return localISOTime;
+}
+
+
+export type ViewState={
+  latitude:number,
+  longitude:number,
+  zoom?:number
+}
+

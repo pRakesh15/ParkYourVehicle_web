@@ -32,7 +32,7 @@ export default function NavBar() {
 
   return (
     <div>
-      <nav className="bg-zinc-900 text-white p-2 relative top-0 w-full z-50">
+      <nav className="bg-zinc-900 text-white p-2 sticky top-0 w-full z-50">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-xl font-bold">My Dark App</h1>
 
