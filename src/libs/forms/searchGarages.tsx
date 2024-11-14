@@ -1,3 +1,4 @@
+'use client'
 import { z } from 'zod'
 import { SlotType } from '../../../../libs/Network/src/gql/generated'
 import { toLocalISOString } from '../utils';
@@ -13,10 +14,10 @@ export const formSchemaSearchGarage = z.object({
     endTime: z.string(),
     //validate location filter..
     locationFilter: z.object({
-        ne_lat: z.number().optional(),
-        ne_lng: z.number().optional(),
-        sw_lat: z.number().optional(),
-        sw_lng: z.number().optional(),
+        ne_lat: z.number(),
+        ne_lng: z.number(),
+        sw_lat: z.number(),
+        sw_lng: z.number(),
     }),
 
     //validate slotType...
