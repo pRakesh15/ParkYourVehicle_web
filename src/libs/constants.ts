@@ -1,3 +1,5 @@
+import { ReactNode } from "react"
+
 export const initialView = {
     latitude: 20.2961,
     longitude: 85.8245,
@@ -8,6 +10,8 @@ export type LocationInfo = {
     placeName: string,
     latlng: [number, number]
 }
+
+
 
 
 

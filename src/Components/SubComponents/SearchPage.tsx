@@ -5,7 +5,6 @@ import { Panel } from './map/Panel'
 import { DefaultZoomControls } from './map/ZoomControls'
 import { ViewStateChangeEvent } from 'react-map-gl'
 import { initialView } from '@/libs/constants'
-import { Autocomplete } from './AutoComplit'
 import { SearchPlaceBox } from './map/SearchPlaceBox'
 import { useFormContext } from 'react-hook-form'
 import { FormTypeSearchGarage } from '@/libs/forms/searchGarages'
@@ -14,40 +13,41 @@ import { IconType } from '../molecules/IconTypes'
 import Input from './Input'
 import { toLocalISOString } from '@/libs/utils'
 import { ShowGarages } from './map/ShowGarages'
+import { FilterSidebar } from './map/FilterSidebar'
 
 type Props = {}
 
 export const SearchPage = (props: Props) => {
 
-    const {register,setValue,watch}=useFormContext<FormTypeSearchGarage>()
+  const { register, setValue, watch } = useFormContext<FormTypeSearchGarage>()
 
-    const formData=watch()
+  const formData = watch()
 
-    // console.log(formData)
+  // console.log(formData)
 
-    const handelMapChange = useCallback(
-        (target: ViewStateChangeEvent['target']) => {
-            const bound=target.getBounds()
-          const  locationFilter={
-            ne_lat:bound?.getNorthEast().lat ||0,
-            ne_lng:bound?.getNorthEast().lng ||0,
-            sw_lat:bound?.getSouthWest().lat ||0,
-            sw_lng:bound?.getSouthWest().lng ||0,
-          }
-        //   console.log('locationFilter',locationFilter)
-          setValue('locationFilter',locationFilter)
-        },
-        [setValue],
-    )
-    return (
-        <Map
-            onLoad={(e) => handelMapChange(e.target)}
-            onDragEnd={(e) => handelMapChange(e.target)}
-            onZoom={(e) => handelMapChange(e.target)}
-            initialViewState={initialView}
-        >
-            <ShowGarages/>
-            <Panel position="left-top">
+  const handelMapChange = useCallback(
+    (target: ViewStateChangeEvent['target']) => {
+      const bound = target.getBounds()
+      const locationFilter = {
+        ne_lat: bound?.getNorthEast().lat || 0,
+        ne_lng: bound?.getNorthEast().lng || 0,
+        sw_lat: bound?.getSouthWest().lat || 0,
+        sw_lng: bound?.getSouthWest().lng || 0,
+      }
+      //   console.log('locationFilter',locationFilter)
+      setValue('locationFilter', locationFilter)
+    },
+    [setValue],
+  )
+  return (
+    <Map
+      onLoad={(e) => handelMapChange(e.target)}
+      onDragEnd={(e) => handelMapChange(e.target)}
+      onZoom={(e) => handelMapChange(e.target)}
+      initialViewState={initialView}
+    >
+      <ShowGarages />
+      <Panel position="left-top">
         <div className="flex flex-col items-stretch">
           <SearchPlaceBox />
           <div className="flex relative pl-1 flex-col mt-1 bg-transparent items-center gap-1 backdrop-blur-sm">
@@ -75,9 +75,12 @@ export const SearchPage = (props: Props) => {
           </div>
         </div>
       </Panel>
-            <Panel position='right-center'>
-                <DefaultZoomControls />
-            </Panel>
-        </Map>
-    )
+      <Panel position='right-center'>
+        <DefaultZoomControls />
+      </Panel>
+      <Panel position="right-top">
+        <FilterSidebar/>
+      </Panel>
+    </Map>
+  )
 }

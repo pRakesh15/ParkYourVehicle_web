@@ -1,10 +1,11 @@
-
+'use client'
 import { useLazyQuery } from "@apollo/client";
 import { SearchGaragesDocument } from "../../../../../libs/Network/src/gql/generated";
 import { GarageMarker } from "./GarageMarker";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { FormTypeSearchGarage } from "@/libs/forms/searchGarages";
+import { useConvertSearchFormToVariables } from "./adapter/searchFormAdapter";
 
 export const ShowGarages=()=>
 {
@@ -12,13 +13,16 @@ export const ShowGarages=()=>
         SearchGaragesDocument
     )
 
-    const {watch}=useFormContext<FormTypeSearchGarage>()
-    const {endTime:end,startTime:start,locationFilter}=watch()
+   const {variables}=useConvertSearchFormToVariables()
 
 
     useEffect(()=>{
-        searchGarages({variables:{dateFilter:{end,start},locationFilter}})
-    },[end,locationFilter,start,searchGarages])
+        if(variables)
+        {
+            searchGarages({variables})
+
+        }
+    },[variables,searchGarages])
 
     return(
         <>
