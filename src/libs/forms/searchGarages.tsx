@@ -1,7 +1,7 @@
 'use client'
 import { z } from 'zod'
 import { SlotType } from '../../../../libs/Network/src/gql/generated'
-import { toLocalISOString } from '../utils';
+import { isEndTimeValid, isStartTimeValid, toLocalISOString } from '../utils';
 import { DefaultValues, FormProvider, useForm } from 'react-hook-form';
 import { ReactNode } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,32 +32,17 @@ export const formSchemaSearchGarage = z.object({
     skip: z.number().optional(),
     take: z.number().optional(),
 
+}).refine(({ startTime }) => isStartTimeValid(startTime), {
+  message: 'Start time should be greater than current time',
+  path: ['startTime'],
 })
-
+.refine(({ endTime, startTime }) => isEndTimeValid({ endTime, startTime }), {
+  message: 'End time should be greater than start time',
+  path: ['endTime'],
+})
 export type FormTypeSearchGarage = z.infer<typeof formSchemaSearchGarage>
 
-const isStartTimeValid = (data: FormTypeSearchGarage) => {
-    const startDate = new Date(data.startTime)
-    const currentDate = new Date()
 
-    return startDate > currentDate
-}
-
-const isEndTimeValid=(data:FormTypeSearchGarage)=>{
-    const startDate=new Date(data.startTime)
-    const endDate=new Date(data.endTime)
-
-    return endDate>startDate
-}
-
-formSchemaSearchGarage.refine(isStartTimeValid,{
-    message:'start time should be grater than current time',
-    path:['startTime']
-})
-.refine(isEndTimeValid,{
-    message:'End time should be grater than start time',
-    path:['endTime']
-})
 
 
 export const getCurrentTimeAndOneHourLater=()=>{

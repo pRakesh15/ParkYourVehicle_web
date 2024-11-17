@@ -8,7 +8,7 @@ import { initialView } from '@/libs/constants'
 import { SearchPlaceBox } from './map/SearchPlaceBox'
 import { useFormContext } from 'react-hook-form'
 import { FormTypeSearchGarage } from '@/libs/forms/searchGarages'
-import { IconArrowDown } from '@tabler/icons-react'
+import {  IconArrowRight } from '@tabler/icons-react'
 import { IconType } from '../molecules/IconTypes'
 import Input from './Input'
 import { toLocalISOString } from '@/libs/utils'
@@ -48,20 +48,20 @@ export const SearchPage = (props: Props) => {
     >
       <ShowGarages />
       <Panel position="left-top">
-        <div className="flex flex-col items-stretch">
+        <div className="flex flex-row items-stretch">
           <SearchPlaceBox />
-          <div className="flex relative pl-1 flex-col mt-1 bg-transparent items-center gap-1 backdrop-blur-sm">
-            <div className=" absolute left-[1px] top-1/2 -translate-y-1/2 ">
-              <IconArrowDown className="p-1" />
-            </div>
+          <div className="flex relative pl-1 flex-row  bg-transparent items-center gap-1 backdrop-blur-sm">
             <div className="flex gap-1 items-center">
-              <IconType time={formData.startTime} />
               <Input
                 type="datetime-local"
-                className="w-full p-2 text-lg font-light border-0"
+                className="w-full p-1 text-lg font-light border-0 "
                 min={toLocalISOString(new Date()).slice(0, 16)}
                 {...register('startTime')}
               />
+              <IconType time={formData.startTime} />
+            </div>
+            <div >
+              <IconArrowRight className="p-1 text-red-600" />
             </div>
             <div className="flex gap-1 items-center">
               <IconType time={formData.endTime} />

@@ -1,15 +1,18 @@
 import { formDefaultValuesSearchGarages, FormTypeSearchGarage } from '@/libs/forms/searchGarages'
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { Button } from '../Button'
 import { IconFilter } from '@tabler/icons-react'
 import { PulsingDot } from './Dot'
-import { Sidebar } from '../Sidebar'
 import { FilterHeading } from './FilterHeading'
 import { ToggleButton, ToggleButtonGroup } from './ToggleButtonGroup'
 import { IconTypes } from '@/components/molecules/IconTypes'
 import { RangeSlider } from './RangeSlider'
-
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import { Button } from '@/components/ui/button'
 
 export const FilterSidebar = () => {
     const [open, setOpen] = useState(false)
@@ -21,19 +24,21 @@ export const FilterSidebar = () => {
         formState: { dirtyFields },
     } = useFormContext<FormTypeSearchGarage>()
     return (
-        <div>
-            <Button
-                size="sm"
-                variant="text"
-                onClick={() => setOpen(true)}
-                className=" hover:bg-gray-200"
-            >
-                <IconFilter className="stroke-1.5 text-red-600" />
-                {Object.values(dirtyFields).length ? <PulsingDot /> : null}
-            </Button>
-            <Sidebar open={open} setOpen={setOpen} blur={false}>
-                <div className="flex flex-col items-start gap-3">
+        <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+                <Button
+                    size="sm"
+                    onClick={() => setOpen(true)}
+                    className=" bg-red-600 hover:bg-red-500 flex"
+                >
+                    <IconFilter className="stroke-1.5 text-black" /> <span className='text-black font-semibold mt-1'>Filter</span>
+                    {Object.values(dirtyFields).length ? <PulsingDot /> : null}
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[300px] p-1 bg-zinc-800 text-white">
+                <div className="flex flex-col items-start gap-3 m-3">
                     {/* controller filter for vehicle wise like car heavy etc */}
+
                     <Controller
                         name='type'
                         control={control}
@@ -48,21 +53,21 @@ export const FilterSidebar = () => {
                                     <ToggleButtonGroup
                                         value={value}
                                         onChange={(_, value) => {
-                                            onChange(value.sort())
+                                            onChange(value.sort());
                                         }}
-                                        aria-label="text formatting"
+                                        aria-label="Vehicle type"
                                     >
                                         {defaultValues?.type?.map((val) => {
-                                            if (!val) return null
+                                            if (!val) return null;
                                             return (
                                                 <ToggleButton
                                                     key={val}
                                                     value={val}
-                                                    selected={value.includes(val)}
+                                                    selected={value.includes(val)} 
                                                 >
-                                                    {IconTypes[val]}
+                                                    {IconTypes[val]} 
                                                 </ToggleButton>
-                                            )
+                                            );
                                         })}
                                     </ToggleButtonGroup>
                                 </div>
@@ -172,6 +177,7 @@ export const FilterSidebar = () => {
                         }}
                     />
                     <Button
+                    
                         onClick={() =>
                             reset({ ...getValues(), ...formDefaultValuesSearchGarages })
                         }
@@ -181,10 +187,12 @@ export const FilterSidebar = () => {
                     </Button>
 
                 </div>
-
-            </Sidebar>
-
-        </div>
+            </PopoverContent>
+        </Popover>
 
     )
 }
+
+
+
+

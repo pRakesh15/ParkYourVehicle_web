@@ -5,7 +5,10 @@ import { FormTypeSearchGarage } from "@/libs/forms/searchGarages"
 
 import { MapMarker } from "./MapMarker"
 import { CircleParking } from "lucide-react"
-import { Dialog } from "./Dialog"
+import { FormProviderBookSlot } from "@/libs/forms/bookSlot"
+import { BookSlotPopup } from "./BookSlotPopup"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Badge } from "@/components/ui/badge"
 
 export const GarageMarker = ({
   marker,
@@ -13,29 +16,20 @@ export const GarageMarker = ({
   marker: SearchGaragesQuery['searchGarages'][number]
 }) => {
   const [showPopup, setShowPopup] = useState(false)
-//   useKeypress(['Escape'], () => setShowPopup(false))
+  //   useKeypress(['Escape'], () => setShowPopup(false))
 
   const { endTime, startTime } = useWatch<FormTypeSearchGarage>()
 
   if (!marker.address?.lat || !marker.address.lng) {
     return null
   }
-//   console.log(marker)
+  //   console.log(marker)
 
   return (
     <>
-       <Dialog
-        title="Booking"
-        widthClassName="max-w-3xl"
-        open={showPopup}
-        setOpen={setShowPopup}
-      >
-        <div className="text-black">
-        {marker.id}
-        </div>
-       
-      </Dialog>
 
+<Dialog>
+      <DialogTrigger asChild>
       <MapMarker
         latitude={marker.address.lat}
         longitude={marker.address.lng}
@@ -44,10 +38,38 @@ export const GarageMarker = ({
           setShowPopup((state) => !state)
         }}
       >
-        
-        <CircleParking className="bg-red-600 h-6 w-6 rounded-2xl" />
-        
+
+        <CircleParking className="bg-red-600 h-4 w-4 rounded-2xl" />
+
       </MapMarker>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[690px] bg-zinc-900 text-white">
+        <DialogHeader>
+          <DialogTitle className="flex items-center justify-between mr-7 ">
+            <span className="text-white">{marker?.displayName}</span>
+            <Badge variant={marker?.verification?.verified ? "default" : "destructive"} className={marker?.verification?.verified ? "bg-green-600" : "bg-red-600"}>
+              {marker?.verification?.verified ? "Verified" : "Not Verified"}
+            </Badge>
+          </DialogTitle>
+        </DialogHeader>
+
+        {/* this is the dialog content part */}
+        <FormProviderBookSlot defaultValues={{ endTime, startTime }}>
+            <BookSlotPopup garage={marker} />
+          </FormProviderBookSlot>
+       
+        </DialogContent>
+        </Dialog>
+
+
+
+        
+
+    
+
+
+
+
     </>
   )
 }

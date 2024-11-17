@@ -1,6 +1,6 @@
 import { ViewState } from '@/libs/utils'
 import { useMap } from 'react-map-gl'
-import { useSearchLocation } from './location'
+import { useSearchLocation } from './hook/location'
 import { Autocomplete } from '../AutoComplit'
 import { LocationInfo, locationsAroundBhubaneswar } from '@/libs/constants'
 

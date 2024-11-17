@@ -2,7 +2,7 @@ import { FormTypeSearchGarage } from "@/libs/forms/searchGarages";
 import { useEffect, useState } from "react";
 import { SearchGaragesQueryVariables } from "../../../../../../libs/Network/src/gql/generated";
 import { FieldNamesMarkedBoolean, useFormContext, useWatch } from "react-hook-form";
-import { useDebounce } from "../async";
+import { useDebounce } from "../hook/async";
 import { intFilter } from "./healper";
 
 type FormData = Partial<

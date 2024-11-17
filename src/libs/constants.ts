@@ -12,7 +12,7 @@ export type LocationInfo = {
 }
 
 
-
+export const VALET_CHARGE_PER_METER=0.023;
 
 
 export const locationsAroundBhubaneswar: LocationInfo[] = [

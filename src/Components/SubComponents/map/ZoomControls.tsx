@@ -20,7 +20,7 @@ const ZoomControlButton = ({
   onClick: MouseEventHandler<HTMLButtonElement>
 }) => (
   <button
-    className=" hover:bg-red-500 bg-red-400"
+    className=" hover:bg-red-500 bg-red-600"
     type="button"
     onClick={onClick}
   >

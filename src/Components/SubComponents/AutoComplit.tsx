@@ -33,10 +33,10 @@ export const Autocomplete = <T,>({
           <input
             type="text"
             {...params.inputProps}
-            className="w-full py-2 pl-3 text-sm pr-8 shadow-none focus:ring-0  text-black font-semibold outline-none rounded-md bg-red-400 placeholder:text-black"
+            className="w-full py-2 pl-3 text-sm pr-8 shadow-none focus:ring-0  text-black font-semibold outline-none rounded-md bg-red-600 placeholder:text-black"
             placeholder={placeholder}
           />
-          <IconSearch className="w-4 h-4 text-gray-800 stroke-2 -ml-7" />
+          <IconSearch className="w-4 h-4 text-black stroke-2 -ml-7" />
         </div>
       )}
       {...props}

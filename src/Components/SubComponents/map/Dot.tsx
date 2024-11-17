@@ -3,7 +3,7 @@ import { BaseComponent } from "@/libs/utils"
 export const PulsingDot = ({ children }: BaseComponent) => {
   if (children)
     return (
-      <div className="absolute top-0 px-2 bg-primary-500 rounded-full left-full animate-pulse">
+      <div className="absolute top-0 px-2 bg-green-500 rounded-full left-full animate-pulse">
         {children}
       </div>
     )
