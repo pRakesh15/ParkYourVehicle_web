@@ -9,9 +9,9 @@ export const CostTitleValue = ({
 }) => {
   if (!price) return null
   return (
-    <div className="flex justify-between text-lg font-bold">
+    <div className="flex justify-between text-sm font-semibold">
       <div>{title}</div>
-      <div>${price}</div>
+      <div className='text-green-700'>₹{price}</div>
     </div>
   )
 }

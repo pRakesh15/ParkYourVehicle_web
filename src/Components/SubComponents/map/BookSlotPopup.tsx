@@ -49,21 +49,21 @@ export const BookSlotPopup = ({
     })
 
     const totalPrice =
-    totalPriceObject.parkingCharge +
-    totalPriceObject.valetChargeDropoff +
-    totalPriceObject.valetChargePickup
+        totalPriceObject.parkingCharge +
+        totalPriceObject.valetChargeDropoff +
+        totalPriceObject.valetChargePickup
 
 
-    const[booking,setBooking]=useState(false);
-    const[loading,setLoading]=useState(false);
+    const [booking, setBooking] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     return (
         <>
-            <div className="grid gap-4 py-2">
+            <div className="grid gap-4 py-1">
                 <div className="text-sm text-gray-300">{garage.address?.address}</div>
 
                 {/* div for auto slide the images */}
-                <div className="relative h-32 overflow-hidden rounded-lg">
+                <div className="relative h-28 overflow-hidden rounded-lg">
                     {garage?.image?.length > 0 ? (
                         garage.image.map((src, index) => (
                             <img
@@ -84,7 +84,7 @@ export const BookSlotPopup = ({
                 <DateRangeBookingInfo startTime={startTime} endTime={endTime} />
                 <Form>
                     <div className="flex flex-wrap gap-2 ">
-                        <HtmlLabel className='text-white -mt-2' title="Slot type" error={errors.type?.message}>
+                        <HtmlLabel className='text-white -mt-4' title="Slot type" error={errors.type?.message}>
                             <Controller
                                 name="type"
                                 control={control}
@@ -112,14 +112,14 @@ export const BookSlotPopup = ({
                                                                 <div className="flex items-center gap-2">
                                                                     {slot.type ? IconTypes[slot.type] : null}
                                                                     <div>
-                                                                        <span className="text-lg font-semibold">
+                                                                        <span className="text-sm font-semibold">
                                                                             ₹{slot.pricePerHour}
                                                                         </span>
                                                                         /hr
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="text-gray-600">
+                                                                <div className="text-gray-600 text-sm">
                                                                     {slot.count} open
                                                                 </div>
                                                             </div>
@@ -132,9 +132,10 @@ export const BookSlotPopup = ({
                                 }}
                             />
                         </HtmlLabel>
+                        {!type ? <FormError /> : null}
                     </div>
-                    {!type ? <FormError /> : null}
-                    <div className="grid grid-cols-2 gap-4">
+
+                    <div className="grid grid-cols-2 gap-4 mt-2">
                         <div className="flex flex-col space-y-1.5">
                             <Label htmlFor="startDateTime" className="text-white">Start Date & Time</Label>
                             <Input id="startDateTime"
@@ -144,7 +145,7 @@ export const BookSlotPopup = ({
                                 {...register('startTime')}
                             />
                         </div>
-                        <div className="flex flex-col space-y-1.5">
+                        <div className="flex flex-col space-y-1 mt-1">
                             <Label htmlFor="endDateTime" className="text-white">End Date & Time</Label>
                             <Input id="endDateTime"
                                 className="bg-gray-800 text-white border-gray-700"
@@ -153,33 +154,36 @@ export const BookSlotPopup = ({
                                 {...register('endTime')} />
                         </div>
                     </div>
-                    <div className="flex flex-col space-y-1.5">
-                        <Label htmlFor="vehicleNo" className="text-white">Vehicle Number</Label>
-                        <Input id="vehicleNo" placeholder="Enter vehicle number EX:OD02 A1515" className="bg-gray-800 text-white border-gray-700"  {...register('vehicleNumber')} />
+                    <div className='grid grid-cols-2 gap-4'>
+                        <div className="flex flex-col space-y-1 mt-1">
+                            <Label htmlFor="vehicleNo" className="text-white">Vehicle Number</Label>
+                            <Input id="vehicleNo" placeholder="Enter vehicle number EX:OD02 A1515" className="bg-gray-800 text-white border-gray-700"  {...register('vehicleNumber')} />
+                        </div>
+                        <div className="flex flex-col space-y-1 mt-1">
+                            <Label htmlFor="mobileNo" className="text-white">Mobile Number</Label>
+                            <Input id="mobileNo" type="tel" placeholder="Enter mobile number" className="bg-gray-800 text-white border-gray-700" {...register('phoneNumber')} />
+                        </div>
                     </div>
-                    <div className="flex flex-col space-y-1.5">
-                        <Label htmlFor="mobileNo" className="text-white">Mobile Number</Label>
-                        <Input id="mobileNo" type="tel" placeholder="Enter mobile number" className="bg-gray-800 text-white border-gray-700" {...register('phoneNumber')} />
-                    </div>
-                    {totalPriceObject ? (
-          <div className="mt-4">
-            <CostTitleValue
-              title="Parking"
-              price={totalPriceObject.parkingCharge}
-            />
-            <CostTitleValue
-              title="Valet Pickup"
-              price={totalPriceObject.valetChargePickup}
-            />
-            <CostTitleValue
-              title="Valet Dropoff"
-              price={totalPriceObject.valetChargeDropoff}
-            />
 
-            <CostTitleValue title="Total" price={totalPrice} />
-          </div>
-        ) : null}
-                    <Button type="submit" className="bg-green-600 hover:bg-green-700 text-white">Book Now</Button>
+                    {totalPriceObject ? (
+                        <div className="mt-3">
+                            <CostTitleValue
+                                title="Parking"
+                                price={totalPriceObject.parkingCharge}
+                            />
+                            <CostTitleValue
+                                title="Valet Pickup"
+                                price={totalPriceObject.valetChargePickup}
+                            />
+                            <CostTitleValue
+                                title="Valet Dropoff"
+                                price={totalPriceObject.valetChargeDropoff}
+                            />
+
+                            <CostTitleValue title="Total" price={totalPrice} />
+                        </div>
+                    ) : null}
+                    <Button type="submit" className="bg-green-600 hover:bg-green-700 w-full">Book Now</Button>
                 </Form>
             </div >
         </>

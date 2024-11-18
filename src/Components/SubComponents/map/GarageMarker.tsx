@@ -43,9 +43,9 @@ export const GarageMarker = ({
 
       </MapMarker>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[690px] bg-zinc-900 text-white">
+      <DialogContent className="sm:max-w-[660px] bg-zinc-900 text-white">
         <DialogHeader>
-          <DialogTitle className="flex items-center justify-between mr-7 ">
+          <DialogTitle className="flex items-center justify-between mr-7 -mt-3 ">
             <span className="text-white">{marker?.displayName}</span>
             <Badge variant={marker?.verification?.verified ? "default" : "destructive"} className={marker?.verification?.verified ? "bg-green-600" : "bg-red-600"}>
               {marker?.verification?.verified ? "Verified" : "Not Verified"}

@@ -5,10 +5,10 @@ import React, { forwardRef } from 'react'
 const Input = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   (props, ref) => (
     <input
-      ref={ref}
-      {...props}
-      className="w-full px-3 py-[6px] text-white font-semibold border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 bg-black placeholder-gray-400"
-    />
+  ref={ref}
+  {...props}
+  className="w-full px-4 py-1.5 text-gray-900 font-medium border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-blue-400 bg-white placeholder-gray-500"
+/>
   )
 )
 
