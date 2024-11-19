@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import pluralize from "pluralize"
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 import { ReactNode } from "react"
 import { twMerge } from "tailwind-merge"
 
@@ -9,19 +9,19 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export const toLocalISOString=(date:Date):string=>{
-  const tzoffset=date.getTimezoneOffset()*60000
+export const toLocalISOString = (date: Date): string => {
+  const tzoffset = date.getTimezoneOffset() * 60000
 
-  const localISOTime=new Date(date.getTime()-tzoffset).toISOString()
+  const localISOTime = new Date(date.getTime() - tzoffset).toISOString()
 
   return localISOTime;
 }
 
 
-export type ViewState={
-  latitude:number,
-  longitude:number,
-  zoom?:number
+export type ViewState = {
+  latitude: number,
+  longitude: number,
+  zoom?: number
 }
 
 export type BaseComponent = {
@@ -120,4 +120,10 @@ export const getTimeUnits = (timeInSeconds: number) => {
   }
 }
 
+export type LatLng = {
+  lat: number,
+  lng: number
+}
+
+export type LngLatTuple = [number, number]
 

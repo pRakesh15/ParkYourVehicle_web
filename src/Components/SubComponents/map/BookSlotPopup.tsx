@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { toLocalISOString } from '@/libs/utils'
 import { useTotalPrice } from './hook/price'
 import { CostTitleValue } from './CostTitleValue'
+import { ManageValet } from './ManageValet'
 
 
 export const BookSlotPopup = ({
@@ -164,7 +165,7 @@ export const BookSlotPopup = ({
                             <Input id="mobileNo" type="tel" placeholder="Enter mobile number" className="bg-gray-800 text-white border-gray-700" {...register('phoneNumber')} />
                         </div>
                     </div>
-
+                    <ManageValet garage={garage} />
                     {totalPriceObject ? (
                         <div className="mt-3">
                             <CostTitleValue

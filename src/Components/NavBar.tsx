@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { signOut, useSession } from 'next-auth/react'
-import { MoreVertical, X, Home, Settings, HelpCircle, LogOut, User, ChevronDown, Menu } from "lucide-react"
+import {  X, Home, Settings, HelpCircle, LogOut, User, Menu, Search } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from 'next/link'
 
@@ -15,7 +15,7 @@ export default function NavBar() {
 
   const menuItems = [
     { name: 'Home', icon: Home, link: '/' },
-    { name: 'Settings', icon: Settings, link: '/' },
+    { name: 'Search', icon: Search, link: '/search' },
     { name: 'Help', icon: HelpCircle, link: '/' },
   ]
 

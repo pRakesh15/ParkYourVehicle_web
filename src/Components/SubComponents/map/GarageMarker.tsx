@@ -28,46 +28,40 @@ export const GarageMarker = ({
   return (
     <>
 
-<Dialog>
-      <DialogTrigger asChild>
-      <MapMarker
-        latitude={marker.address.lat}
-        longitude={marker.address.lng}
-        onClick={(e) => {
-          e.originalEvent.stopPropagation()
-          setShowPopup((state) => !state)
-        }}
-      >
+      <Dialog>
+        <DialogTrigger asChild>
+          <MapMarker
+            latitude={marker.address.lat}
+            longitude={marker.address.lng}
+            onClick={(e) => {
+              e.originalEvent.stopPropagation();
+              setShowPopup((state) => !state);
+            }}
+          >
+            <CircleParking className="bg-red-600 h-4 w-4 rounded-2xl" />
+          </MapMarker>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[660px] max-h-[115vh] bg-zinc-900 text-white overflow-hidden">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between mr-7 -mt-3">
+              <span className="text-white">{marker?.displayName}</span>
+              <Badge
+                variant={marker?.verification?.verified ? "default" : "destructive"}
+                className={marker?.verification?.verified ? "bg-green-600" : "bg-red-600"}
+              >
+                {marker?.verification?.verified ? "Verified" : "Not Verified"}
+              </Badge>
+            </DialogTitle>
+          </DialogHeader>
 
-        <CircleParking className="bg-red-600 h-4 w-4 rounded-2xl" />
-
-      </MapMarker>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[660px] bg-zinc-900 text-white">
-        <DialogHeader>
-          <DialogTitle className="flex items-center justify-between mr-7 -mt-3 ">
-            <span className="text-white">{marker?.displayName}</span>
-            <Badge variant={marker?.verification?.verified ? "default" : "destructive"} className={marker?.verification?.verified ? "bg-green-600" : "bg-red-600"}>
-              {marker?.verification?.verified ? "Verified" : "Not Verified"}
-            </Badge>
-          </DialogTitle>
-        </DialogHeader>
-
-        {/* this is the dialog content part */}
-        <FormProviderBookSlot defaultValues={{ endTime, startTime }}>
-            <BookSlotPopup garage={marker} />
-          </FormProviderBookSlot>
-       
+         
+          <div className="overflow-y-auto max-h-[90vh] scrollbar-hide">
+            <FormProviderBookSlot defaultValues={{ endTime, startTime }}>
+              <BookSlotPopup garage={marker} />
+            </FormProviderBookSlot>
+          </div>
         </DialogContent>
-        </Dialog>
-
-
-
-        
-
-    
-
-
+      </Dialog>
 
 
     </>

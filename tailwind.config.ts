@@ -66,7 +66,7 @@ export default {
   		}
   	}
   },
-  plugins: [addVariablesForColors, require("tailwindcss-animate")],
+  plugins: [addVariablesForColors, require("tailwindcss-animate"),require('tailwind-scrollbar-hide')],
 } satisfies Config;
 
 
