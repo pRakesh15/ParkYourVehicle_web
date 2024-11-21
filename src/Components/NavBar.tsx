@@ -29,6 +29,7 @@ export default function NavBar() {
   }
 
   const { data: sessionData, status } = useSession()
+  // console.log(sessionData);
 
   return (
     <div>

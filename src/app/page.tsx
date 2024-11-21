@@ -18,7 +18,7 @@ export default function Home() {
       }
     }
   })
-  console.log(garages)
+  // console.log(garages)
   // const router = useRouter();
   return (
     <div >
