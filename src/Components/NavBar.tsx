@@ -1,142 +1,84 @@
 'use client'
-
-import { useState } from 'react'
-import { signOut, useSession } from 'next-auth/react'
-import { X, Home, Settings, HelpCircle, LogOut, User, Menu, Search } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+ 
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import MobileMenu from './atoms/MobileMenu'
+import { signOut, useSession } from 'next-auth/react'
 
-export default function NavBar() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
+const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false) // This would normally come from your auth state
 
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen)
-  const toggleProfile = () => setIsProfileOpen(!isProfileOpen)
+  const router = useRouter();
 
-  const menuItems = [
-    { name: 'Home', icon: Home, link: '/' },
-    { name: 'Search', icon: Search, link: '/search' },
-    { name: 'Help', icon: HelpCircle, link: '/' },
-  ]
+    //functions for signout and side bar...
 
-  //functions for signout and side bar...
+    const handleLogout = () => {
+      // Implement logout logic here
+      signOut();
+  
+    }
+  
+    const { data: sessionData, status } = useSession()
 
-  const handleLogout = () => {
-    // Implement logout logic here
-    signOut();
-    setIsProfileOpen(false)
-    setIsSidebarOpen(false)
-  }
-
-  const { data: sessionData, status } = useSession()
-  // console.log(sessionData);
+    console.log(sessionData)
+    
 
   return (
-    <div>
-      <nav className="bg-zinc-900 text-white p-2 sticky top-0 w-full z-50">
-        <div className="container mx-auto flex justify-between items-center">
-          <div>
-            <Image
-              src="/logo.png"
-              alt="PH"
-              width={50}
-              height={50}
-            />
-          </div>
+    <nav className="flex items-center justify-between p-3 bg-transparent shadow-md">
+      {/* Left section - Logo */}
+      <div className="flex items-center">
+        <Link href="/" className="text-2xl font-bold text-blue-600">
+          ParkingHub
+        </Link>
+      </div>
 
-          {/* Desktop Menu */}
-          {
-            sessionData?.user?.uid ?
-              (
-                <button
-                  onClick={toggleSidebar}
-                  className="p-2 rounded-md hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-600"
-                  aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
-                >
-                  {/* if the user is present then this button is visible  */}
-                  <Menu className="h-6 w-6" />
-                </button>
-              ) : (
-                <div className="flex items-center space-x-4">
-                  <button className="px-4 py-2 text-red-600 hover:text-white rounded-md transition-colors">
-                    <Link href={'/login'}>
-                      Login
-                    </Link>
-                  </button>
-                </div>
-              )
-          }
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <AnimatePresence>
-        {isSidebarOpen && (
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed top-0 right-0 h-full w-64 bg-zinc-800 text-white shadow-lg z-50"
-          >
-            <div className="p-4">
-              <button
-                onClick={toggleSidebar}
-                className="absolute top-4 right-4 p-2 rounded-md hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-600"
-                aria-label="Close menu"
-              >
-                <X className="h-6 w-6" />
-              </button>
-              <h2 className="text-xl font-bold mb-6">Menu</h2>
-              <ul className="space-y-4">
-                {menuItems.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.link}
-                      className="flex items-center space-x-2 p-2 rounded-md hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-600"
-                      onClick={toggleSidebar}
-                    >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {
-              sessionData?.user?.uid ? (<div className="absolute bottom-0 left-0 right-0 p-4 border-t border-zinc-700">
-                <div className="flex items-center space-x-2 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center overflow-hidden">
-                    {sessionData?.user?.image ? (
-                      <img
-                        src={sessionData.user.image}
-                        alt="User profile"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <User className="h-6 w-6" />
-                    )}
-                  </div>
-                  <div>
-                    <p className="font-medium">{sessionData?.user?.name}</p>
-                    <p className="text-sm text-zinc-400">{sessionData?.user?.email}</p>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center space-x-2 p-2 rounded-md hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-600"
-                >
-                  <LogOut className="h-5 w-5" />
-                  <span>Logout</span>
-                </button>
-              </div>) : ('')
-            }
-
-          </motion.div>
+      {/* Middle section - Search and About Us */}
+      <div className="hidden md:flex items-center space-x-4">
+        
+        <Link href="/search" className="text-white-600 hover:text-blue-600">
+          Search Garage
+        </Link>
+        <Link href="/about" className="text-white-600 hover:text-blue-600">
+          About Us
+        </Link>
+        {sessionData?.user?.uid  ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="cursor-pointer h-8 w-8">
+                <AvatarImage src="/User.png" alt="@PH" className='bg-white' />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='bg-zinc-900 text-white'>
+              <DropdownMenuItem>
+                <span>{sessionData?.user?.email}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Button className='rounded-3xl bg-zinc-800 border border-white '  onClick={() => router.push('/login')}>Login </Button>
         )}
-      </AnimatePresence>
-    </div>
+      </div>
+      
+      {/* Right section - Login/Register or Avatar */}
+      <div className="md:hidden">
+      <MobileMenu data={sessionData} handelLogout={handleLogout} />
+      </div>
+    </nav>
   )
 }
+
+export default Navbar
+
