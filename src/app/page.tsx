@@ -1,5 +1,5 @@
 'use client'
-import Image from "next/image";
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { useQuery } from "@apollo/client";
 import { SearchGaragesDocument, UsersDocument } from "../../../libs/Network/src/gql/generated";
 import { useSession } from "next-auth/react";

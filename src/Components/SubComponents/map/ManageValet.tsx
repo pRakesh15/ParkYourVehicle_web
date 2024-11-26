@@ -1,4 +1,5 @@
 'use client'
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { useFormContext, useWatch } from "react-hook-form";
 import { SearchGaragesQuery } from "../../../../../libs/Network/src/gql/generated";
 import { useState } from "react";
@@ -93,6 +94,7 @@ export const ManageValet = ({
                             zoom: 13,
                         }}
                         height="50vh"
+                        onLoad={()=>{console.log('map loaded')}}
                     >
                         <Panel position='right-center'>
                             <DefaultZoomControls />

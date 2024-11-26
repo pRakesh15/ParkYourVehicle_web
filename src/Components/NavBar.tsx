@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { signOut, useSession } from 'next-auth/react'
-import {  X, Home, Settings, HelpCircle, LogOut, User, Menu, Search } from "lucide-react"
+import { X, Home, Settings, HelpCircle, LogOut, User, Menu, Search } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function NavBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -35,7 +36,14 @@ export default function NavBar() {
     <div>
       <nav className="bg-zinc-900 text-white p-2 sticky top-0 w-full z-50">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">My Dark App</h1>
+          <div>
+            <Image
+              src="/logo.png"
+              alt="PH"
+              width={50}
+              height={50}
+            />
+          </div>
 
           {/* Desktop Menu */}
           {
