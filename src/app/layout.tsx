@@ -28,14 +28,15 @@ export default function RootLayout({
     <html lang="en">
       <SessionProvider>
         <ApolloProvider>
-          
-          <body className={`${inter.className} bg-gray-25 bg-zinc-900 text-white`}>
-          <NavBar/>
+
+          <body className={`${inter.className} bg-gray-25 bg-black text-white`}>
+          <NavBar />
             {children}
+          
             <ToastContainer />
           </body>
         </ApolloProvider>
-        </SessionProvider>
+      </SessionProvider>
     </html>
   )
 }

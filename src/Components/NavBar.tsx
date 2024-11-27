@@ -1,5 +1,5 @@
 'use client'
- 
+
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -19,21 +19,21 @@ const Navbar = () => {
 
   const router = useRouter();
 
-    //functions for signout and side bar...
+  //functions for signout and side bar...
 
-    const handleLogout = () => {
-      // Implement logout logic here
-      signOut();
-  
-    }
-  
-    const { data: sessionData, status } = useSession()
+  const handleLogout = () => {
+    // Implement logout logic here
+    signOut();
 
-    console.log(sessionData)
-    
+  }
+
+  const { data: sessionData, status } = useSession()
+
+  // console.log(sessionData)
+
 
   return (
-    <nav className="flex items-center justify-between p-3 bg-transparent shadow-md">
+    <nav className="flex items-center justify-between p-3 bg-transparent shadow-md sticky top-0 z-50 ">
       {/* Left section - Logo */}
       <div className="flex items-center">
         <Link href="/" className="text-2xl font-bold text-blue-600">
@@ -43,14 +43,12 @@ const Navbar = () => {
 
       {/* Middle section - Search and About Us */}
       <div className="hidden md:flex items-center space-x-4">
-        
+
         <Link href="/search" className="text-white-600 hover:text-blue-600">
           Search Garage
         </Link>
-        <Link href="/about" className="text-white-600 hover:text-blue-600">
-          About Us
-        </Link>
-        {sessionData?.user?.uid  ? (
+
+        {sessionData?.user?.uid ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer h-8 w-8">
@@ -68,13 +66,13 @@ const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <Button className='rounded-3xl bg-zinc-800 border border-white '  onClick={() => router.push('/login')}>Login </Button>
+          <Button className='rounded-3xl bg-zinc-800 border border-white ' onClick={() => router.push('/login')}>Login </Button>
         )}
       </div>
-      
+
       {/* Right section - Login/Register or Avatar */}
       <div className="md:hidden">
-      <MobileMenu data={sessionData} handelLogout={handleLogout} />
+        <MobileMenu data={sessionData} handelLogout={handleLogout} />
       </div>
     </nav>
   )

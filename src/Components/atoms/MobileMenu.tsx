@@ -15,7 +15,7 @@ interface MobileMenuProps {
 const MobileMenu: React.FC<MobileMenuProps> = ({ data, handelLogout }) => {
     const router = useRouter();
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <Sheet>
