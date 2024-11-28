@@ -18,7 +18,7 @@ export interface ISignupFormProps {
   role?: Role
 }
 
-export const RegisterForm = () => {
+export const RegisterForm = () => { 
   const {
     register,
     handleSubmit,
@@ -39,17 +39,31 @@ export const RegisterForm = () => {
             },
           });
           if (errors) {
-            alert(errors);
             console.log(errors)
+            toast.error('unable to create account', {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           }
           if (data) {
-            toast.success(`User ${data.registerWithCredentials.name} created`,{
-              position:'top-right'
-            });
             signIn('credentials', {
               email: formData.email,
               password: formData.password,
               callbackUrl: '/',
+            });
+            toast.success(`User ${data.registerWithCredentials.name} created`, {
+              position: "bottom-center",
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
             });
           }
         })}

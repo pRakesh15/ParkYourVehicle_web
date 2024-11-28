@@ -11,12 +11,12 @@ import Link from 'next/link'
 import { cn } from '@/libs/utils'
 import { IconBrandGoogle } from '@tabler/icons-react'
 import { Label } from './ui/label'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { Input } from './ui/input'
 
 
 export default function LoginForm() {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false) 
     const {
         register,
         handleSubmit,
@@ -47,15 +47,32 @@ export default function LoginForm() {
                     })
                     // console.log(result)
                     if (result?.ok) {
-                        toast.success('login successfully', {
-                            position: 'top-right'
-                        })
                         setLoading(false)
                         replace('/')
+                        toast.success('Login successfully !! ', {
+                            position: "bottom-center",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                          });
+                        
+                       
                     } 
 
                     if (result?.error) {
-                        toast.error('login failed')
+                        // console.log(result?.error)
+                        toast.error(result?.error, {
+                            position: "bottom-right",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                          });
                         setLoading(false)
                     }
                 })}>

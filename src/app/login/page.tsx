@@ -7,8 +7,8 @@ type Props = {}
 
 const page = (props: Props) => {
     return (
-        <div><LoginForm />
-            <ToastContainer position="top-right" autoClose={3000} />
+        <div>
+            <LoginForm />
         </div>
     )
 }

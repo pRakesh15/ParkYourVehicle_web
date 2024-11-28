@@ -8,6 +8,7 @@ import { SessionProvider } from '@/components/molecules/SessionProvider';
 import NavBar from '@/components/NavBar';
 import { ToastContainer } from 'react-toastify';
 const inter = Inter({ subsets: ['latin'] })
+import 'react-toastify/dist/ReactToastify.css';
 
 // export const metadata: Metadata = {
 //   title: 'Autospace',

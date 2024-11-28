@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import MobileMenu from './atoms/MobileMenu'
 import { signOut, useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false) // This would normally come from your auth state
@@ -21,9 +22,18 @@ const Navbar = () => {
 
   //functions for signout and side bar...
 
-  const handleLogout = () => {
+  const handleLogout =async () => {
     // Implement logout logic here
-    signOut();
+   await signOut();
+   toast.success('user logout', {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
 
   }
 
@@ -48,7 +58,7 @@ const Navbar = () => {
           Search Garage
         </Link>
 
-        {sessionData?.user?.uid ? (
+        {sessionData?.user?.uid ? ( 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer h-8 w-8">
